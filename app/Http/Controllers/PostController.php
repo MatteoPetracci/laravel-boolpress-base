@@ -7,6 +7,11 @@ use App\Post;
 
 class PostController extends Controller
 {
+    private $validation = [
+        'image'=>'required|string',
+        'title'=>'required|string|max:90',
+        'description'=>'required|numeric|min:1|max:5000',
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +30,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -36,7 +41,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $request->validate($this->validation);
+        $post = new Post;
+        $post->fill($data);
+        $savePost = $post->save();
+        if ($savePost) {
+            $post = Post::orderBy('id','desc')->first();
+            //Se chiamo show devo passare l'elemento in compact
+            return redirect()->route('posts.show', compact('post'));
+        } else {
+            dd('error save');
+        }
     }
 
     /**
@@ -45,9 +62,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        if (empty($post)) {
+            abort('404');
+        }
+        return view('posts.show', compact('post'));
     }
 
     /**
