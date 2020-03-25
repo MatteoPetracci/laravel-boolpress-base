@@ -10,7 +10,7 @@ class PostController extends Controller
     private $validation = [
         'image'=>'required|string',
         'title'=>'required|string|max:90',
-        'description'=>'required|numeric|min:1|max:5000',
+        'description'=>'required|string|min:1|max:5000',
     ];
     /**
      * Display a listing of the resource.
