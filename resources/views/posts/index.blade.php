@@ -10,6 +10,11 @@
             <li>{{$post->description}}</li>
             <li>{{$post->created_at}}</li>
             <li>{{$post->updated_at}}</li>
+            <form action="{{route('posts.destroy', $post->id)}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit">Delete</button>
+            </form>
         </ul>
     @endforeach
 @endsection
