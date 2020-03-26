@@ -45,9 +45,9 @@ class PhotoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Photo $photo)
     {
-        //
+        return view('photo.show', compact('photo'));
     }
 
     /**
