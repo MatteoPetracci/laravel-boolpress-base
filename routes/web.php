@@ -20,3 +20,5 @@ use Illuminate\Support\Facades\Route;
 Route::resource('posts', 'PostController');
 Route::resource('users', 'UserController');
 Route::resource('photos', 'PhotoController');
+Route::resource('avatars', 'AvatarController');
+
